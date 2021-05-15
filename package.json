@@ -1,0 +1,20 @@
+{
+  "name": "battery-prompter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "battery-prompter.js",
+  "bin": {
+    "battery-prompter": "bin/battery-prompter.js"
+  },
+  "scripts": {
+    "start": "node battery-prompter.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "battery-level": "^3.0.0",
+    "osx-battery": "^4.0.0",
+    "say": "^0.16.0"
+  }
+}
