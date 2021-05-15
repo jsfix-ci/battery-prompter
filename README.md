@@ -10,7 +10,30 @@ I'd like my battery to last as long as possible, but most days I sit at my desk 
 
 ## How to use
 
-Run it in continuous mode in the background like so...
+Run it in continuous mode...
 ```
-node battery-prompter.js continuous
+npm install -g battery-prompter
+battery-prompter continuous
+```
+
+Run it in continuous mode in the background...
+```
+npm install -g battery-prompter
+battery-prompter continuous &>/dev/null &
+```
+Alternatively, you can use `npx`...
+```
+npx battery-prompter continuous &>/dev/null &
+```
+...which should output something like this...
+```
+npx battery-prompter
+
+To run in continuous mode, add the "continuous" argument to the command line.
+
+Continuous mode: false
+
+Current Date/Time: 5/15/2021 2:49:40 PM
+Current Battery Level: 40
+Currently Charging: true
 ```
