@@ -1,20 +1,29 @@
 {
   "name": "battery-prompter",
   "version": "1.0.2",
-  "description": "",
-  "main": "battery-prompter.js",
+  "description": "A speaking prompter for when the battery gets low or is mostly charged",
+  "main": "./build/battery-prompter.js",
   "bin": {
-    "battery-prompter": "bin/battery-prompter.js"
+    "battery-prompter": "./build/battery-prompter.js"
   },
   "scripts": {
-    "start": "node battery-prompter.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node src/battery-prompter.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup --config",
+    "prepublish": "npm run build"
   },
-  "author": "",
+  "author": "mark.hicken@gmail.com",
   "license": "ISC",
   "dependencies": {
     "battery-level": "^3.0.0",
     "osx-battery": "^4.0.0",
     "say": "^0.16.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "rollup": "^2.48.0",
+    "rollup-plugin-add-shebang": "^0.3.1",
+    "rollup-plugin-terser": "^7.0.2"
   }
 }

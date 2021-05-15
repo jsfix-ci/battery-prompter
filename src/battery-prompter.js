@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 // imports
 const getBatteryLevel = require('battery-level');
 const getOsxBattery = require('osx-battery');
