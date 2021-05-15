@@ -13,7 +13,7 @@ let settings = {
 
 const checkChargeStatus = async() => {
   const now = new Date();
-  const currentBatteryLevel = await getBatteryLevel() * 100;
+  const currentBatteryLevel = Math.round(await getBatteryLevel() * 100);
   const batteryInfo = await getOsxBattery();
   const {isCharging} = batteryInfo;
 
