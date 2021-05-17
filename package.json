@@ -2,6 +2,10 @@
   "name": "battery-prompter",
   "version": "1.0.5",
   "description": "A speaking prompter for when the battery gets low or is mostly charged",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markhicken/battery-prompter.git"
+  },
   "main": "./build/battery-prompter.js",
   "bin": {
     "battery-prompter": "./build/battery-prompter.js"

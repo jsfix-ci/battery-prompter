@@ -5,7 +5,7 @@ This little utility is meant for Macbook users. It does the following...
 - verbally prompts you to unplug when the battery is above 90% and is charging
 
 ## Why?
-I'd like my battery to last as long as possible, but most days I sit at my desk working on the Macbook. Apple says that charging/decharging is a good way to keep your battery healthy. I tried other battery warning apps. None were smart enough to recognize an external thunderbolt 3 connection with power delivery (that doesn't deliver enough power to charge the laptop) compared to an actual Apple power adapter. This utility is smart enough to check if the battery is actually charging.
+I'd like my battery to last as long as possible, but most days I sit at my desk working on the Macbook. Apple says that charging/decharging is a good way to keep your battery healthy. I tried other battery warning apps. None were smart enough to recognize an external thunderbolt 3 connection with power delivery (that doesn't deliver enough power to charge the laptop) compared to an OEM Apple power adapter. This utility is smart enough to check if the battery is actually charging.
 
 
 ## How to use
@@ -25,7 +25,7 @@ Alternatively, you can use `npx`...
 ```
 npx battery-prompter continuous &>/dev/null &
 ```
-...which should output something like this...
+The script should output something like this...
 ```
 To run in continuous mode, add the "continuous" argument to the command line.
 
