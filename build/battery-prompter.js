@@ -19,7 +19,7 @@ const checkChargeStatus = async() => {
   const now = new Date();
   const currentBatteryLevel = Math.round(await getBatteryLevel() * 100);
   const batteryInfo = await getOsxBattery();
-  const {isCharging} = batteryInfo;
+  const {fullyCharged, isCharging} = batteryInfo;
 
   console.log('Current Date/Time: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString());
   console.log('Current Battery Level: ' + currentBatteryLevel);
@@ -28,9 +28,13 @@ const checkChargeStatus = async() => {
 
   {
     if(currentBatteryLevel <= settings.lowWarningThreshold && !isCharging) {
-      say.speak('Battery is low. Plug in now!');
-    } else if (currentBatteryLevel >= settings.highWarningThreshold && isCharging) {
-      say.speak('Battery is sufficiently charged. Unplug now!');
+      const message = 'Battery is low. Plug in now!';
+      say.speak(message);
+      console.log(message);
+    } else if (currentBatteryLevel >= settings.highWarningThreshold && (fullyCharged || isCharging)) {
+      const message = 'Battery is sufficiently charged. Unplug now!';
+      say.speak(message);
+      console.log(message);
     }
   }
 
