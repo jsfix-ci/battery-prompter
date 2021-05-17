@@ -1,6 +1,6 @@
 {
   "name": "battery-prompter",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A speaking prompter for when the battery gets low or is mostly charged",
   "repository": {
     "type": "git",
