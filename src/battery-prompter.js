@@ -19,6 +19,7 @@ const checkChargeStatus = async() => {
 
   console.log('Current Date/Time: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString());
   console.log('Current Battery Level: ' + currentBatteryLevel);
+  console.log('Currently Fully Charged: ' + fullyCharged);
   console.log('Currently Charging: ' + isCharging);
   console.log('');
 
