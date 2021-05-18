@@ -1,8 +1,8 @@
 const batteryPrompter = require('./battery-prompter');
 
 // TODO: get mocked functions working
-// const testFixtures = require('./testFixtures');
 // const getBatteryLevel = jest.fn().mockImplementation(() => Promise.resolve(72));
+// const testFixtures = require('./testFixtures');
 
 test('reports battery level', async() => {
   const result = await batteryPrompter.checkChargeStatus({

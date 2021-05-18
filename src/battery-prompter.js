@@ -1,3 +1,7 @@
+'use strict';
+
+process.title = 'battery-prompter';
+
 // imports
 const getBatteryLevel = require('battery-level');
 const getOsxBattery = require('osx-battery');
@@ -7,9 +11,10 @@ let settings = {
   enabled: true, // TODO: build a UI to enable/disable while running
   lowWarningThreshold: 10,
   highWarningThreshold: 90,
-  checkRepeatTime: 60 * 1000 * 2, // 2 minutes
+  checkRepeatTimeLow: 60 * 1000 * 1, // 1 minute
+  checkRepeatTimeHigh: 60 * 1000 * 3, // 3 minutes
   isContinuous: process.argv[2] === 'continuous'
-}
+};
 
 const checkChargeStatus = async({
   settings,
@@ -21,17 +26,17 @@ const checkChargeStatus = async({
   const batteryInfo = await getOsxBattery();
   const {fullyCharged, isCharging} = batteryInfo;
 
-  const output = outputFormat === 'json' ? {
-    dateTime: now.toLocaleDateString() + ' ' + now.toLocaleTimeString(),
-    currentBatteryLevel,
-    fullyCharged,
-    isCharging
-  } : (
+  const output = outputFormat === 'string' ? (
     'Current Date/Time: ' + now.toLocaleDateString() + ' ' + now.toLocaleTimeString() + '\r\n' +
     'Current Battery Level: ' + currentBatteryLevel + '\r\n' +
     'Currently Fully Charged: ' + fullyCharged + '\r\n' +
     'Currently Charging: ' + isCharging + '\r\n'
-  );
+  ) : {
+    dateTime: now.toLocaleDateString() + ' ' + now.toLocaleTimeString(),
+    currentBatteryLevel,
+    fullyCharged,
+    isCharging
+  };
 
   if (settings.enabled) {
     if(currentBatteryLevel <= settings.lowWarningThreshold && !isCharging) {
@@ -47,15 +52,17 @@ const checkChargeStatus = async({
     console.log(output);
   }
 
+  // prompt more often when battery is low
+  const checkRepeatTime = currentBatteryLevel <= settings.lowWarningThreshold ? settings.checkRepeatTimeLow : settings.checkRepeatTimeHigh;
   // check again and repeat the prompt
   if (settings.isContinuous) {
     setTimeout(()=>{
       checkChargeStatus(settings);
-    }, settings.checkRepeatTime);
+    }, checkRepeatTime);
   }
 
   return output;
-}
+};
 
 // only auto run if we aren't inside Jest
 if (typeof jest === 'undefined') {
