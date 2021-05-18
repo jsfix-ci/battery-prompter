@@ -284,3 +284,8 @@ const mbp16_external_thunderbolt_monitor_plus_96w_oem_power_adapter = {
   userVisiblePathUpdated: 1621099873,
   voltage: 11222
 };
+
+module.exports = {
+  mbp16_external_thunderbolt_monitor,
+  mbp16_external_thunderbolt_monitor_plus_96w_oem_power_adapter
+};
