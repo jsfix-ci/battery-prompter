@@ -12,15 +12,17 @@ let settings = {
   lowWarningThreshold: 10,
   highWarningThreshold: 90,
   checkRepeatTimeLow: 60 * 1000 * 1, // 1 minute
-  checkRepeatTimeHigh: 60 * 1000 * 3, // 3 minutes
+  checkRepeatTimeHigh: 60 * 1000 * 2, // 2 minutes
   isContinuous: process.argv[2] === 'continuous'
 };
 
-const checkChargeStatus = async({
-  settings,
-  outputFormat = 'string',
-  logOutput
-} = {}) => {
+const checkChargeStatus = async(options = {}) => {
+  const {
+    settings,
+    outputFormat = 'string',
+    logOutput = true
+  } = options;
+
   const now = new Date();
   const currentBatteryLevel = Math.round(await getBatteryLevel() * 100);
   const batteryInfo = await getOsxBattery();
@@ -57,7 +59,7 @@ const checkChargeStatus = async({
   // check again and repeat the prompt
   if (settings.isContinuous) {
     setTimeout(()=>{
-      checkChargeStatus(settings);
+      checkChargeStatus(options);
     }, checkRepeatTime);
   }
 
@@ -72,7 +74,7 @@ if (typeof jest === 'undefined') {
       console.log('To run in continuous mode, add the "continuous" argument to the command line.\r\n');
     }
     console.log('Continuous mode: ' + settings.isContinuous + '\r\n');
-    checkChargeStatus({settings, logOutput: true});
+    checkChargeStatus({settings});
   })();
 }
 
