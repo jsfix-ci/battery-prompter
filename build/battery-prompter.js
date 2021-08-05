@@ -20,7 +20,7 @@ program.parse(process.argv);
 
 let options = {
   enabled: true, // TODO: build a UI to enable/disable while running
-  logFilePath: null,
+  logFilePath: '',
   loggingEnabled: true,
   outputFormat: 'string',
   lowWarningThreshold: 10,
@@ -79,6 +79,7 @@ const checkChargeStatus = async(options = {}) => {
 
   if (options.loggingEnabled) {
     console.log(output);
+
     if (options.logFilePath) {
       const lastLogLines = await readLastLine.read(options.logFilePath, 500);
       const updatedLog = lastLogLines ? lastLogLines + '\r\n' + output : output;
