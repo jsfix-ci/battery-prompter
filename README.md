@@ -13,25 +13,26 @@ I'd like my battery to last as long as possible, but most days I sit at my desk 
 Run it in continuous mode...
 ```
 npm install -g battery-prompter
-battery-prompter continuous
+battery-prompter --continuous
 ```
 
 Run it in continuous mode in the background...
 ```
 npm install -g battery-prompter
-battery-prompter continuous &>/dev/null &
+battery-prompter --continuous &>/dev/null &
 ```
 Alternatively, you can use `npx`...
 ```
-npx battery-prompter continuous &>/dev/null &
+npx battery-prompter --continuous &>/dev/null &
 ```
 The script should output something like this...
 ```
-To run in continuous mode, add the "continuous" argument to the command line.
+To run in continuous mode, add the "--continuous" argument to the command line.
 
 Continuous mode: false
 
 Current Date/Time: 5/15/2021 2:49:40 PM
 Current Battery Level: 40
 Currently Charging: true
+Currently Charging With High Wattage (Such as an Apple Adapter): true
 ```
