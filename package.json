@@ -21,7 +21,9 @@
   "license": "ISC",
   "dependencies": {
     "battery-level": "^3.0.0",
+    "commander": "^8.1.0",
     "osx-battery": "^4.0.0",
+    "read-last-line": "^1.1.0",
     "say": "^0.16.0"
   },
   "devDependencies": {
