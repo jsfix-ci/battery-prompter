@@ -102,7 +102,7 @@ if (typeof jest === 'undefined') {
   // run the app
   (async () => {
     if (!options.continuous) {
-      console.log('To run in continuous mode, add the "continuous" argument to the command line.\r\n');
+      console.log('To run in continuous mode, add the "--continuous" argument to the command line.\r\n');
     }
     console.log('Continuous mode: ' + options.continuous + '\r\n');
     checkChargeStatus({...options});
