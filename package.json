@@ -11,7 +11,7 @@
     "battery-prompter": "./build/battery-prompter"
   },
   "scripts": {
-    "dev": "node src/battery-prompter.js",
+    "dev": "node src/battery-prompter.js -l logs/log-dev.txt",
     "test": "jest",
     "build": "rollup --config && npm run pkg",
     "pkg": "./node_modules/.bin/pkg ./build/battery-prompter.js --targets node12-macos-x64 --output ./build/battery-prompter",
@@ -20,7 +20,6 @@
   "author": "mark.hicken@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "battery-level": "^3.0.0",
     "commander": "^8.1.0",
     "osx-battery": "^4.0.0",
     "read-last-line": "^1.1.0",

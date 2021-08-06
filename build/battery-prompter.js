@@ -9,19 +9,20 @@ const fs = require('fs');
 const path = require('path');
 const readLastLine = require('read-last-line');
 const { program } = require('commander');
-const getBatteryLevel = require('battery-level');
 const getOsxBattery = require('osx-battery');
 const say = require('say');
 
 program
   .option('-c, --continuous', 'run in continuous mode')
-  .option('-l, --log-file-path <path>', 'where to write the log after each check');
+  .option('-l, --log-file-path <path>', 'where to write the log after each check')
+  .allowUnknownOption();
 program.parse(process.argv);
 
 let options = {
   enabled: true, // TODO: build a UI to enable/disable while running
   logFilePath: '',
   loggingEnabled: true,
+  speechEnabled: true,
   outputFormat: 'string',
   lowWarningThreshold: 10,
   highWarningThreshold: 90,
@@ -31,16 +32,22 @@ let options = {
   ...program.opts()
 };
 
+// ensure log file exists
 const basePath = path.dirname(options.logFilePath);
-if (options.loggingEnabled && options.logFilePath && !fs.existsSync(basePath)){
-  fs.mkdirSync(basePath, { recursive: true });
+if (options.loggingEnabled && options.logFilePath){
+  if (!fs.existsSync(basePath)) {
+    fs.mkdirSync(basePath, { recursive: true });
+  }
+  if (!fs.existsSync(options.logFilePath)) {
+    fs.writeFileSync(options.logFilePath, '');
+  }
 }
 
-const checkChargeStatus = async(options = {}) => {
+const checkChargeStatus = async(options = {}, currentBatteryInfo) => {
   const now = new Date();
-  const currentBatteryLevel = Math.round(await getBatteryLevel() * 100);
-  const batteryInfo = await getOsxBattery();
-  const {fullyCharged, isCharging, adapterDetails} = batteryInfo;
+  const batteryInfo = currentBatteryInfo || await getOsxBattery();
+  const {batteryData, fullyCharged, isCharging, adapterDetails} = batteryInfo;
+  const currentBatteryLevel = batteryData.stateOfCharge;
   // ensure we are using an apple adaptor or at least one with enough wattage to charge the laptop
   let isChargingWithHighWattage = isCharging && adapterDetails.watts >= 60;
 
@@ -70,10 +77,12 @@ const checkChargeStatus = async(options = {}) => {
   if (options.enabled) {
     if(currentBatteryLevel <= options.lowWarningThreshold && !isChargingWithHighWattage) {
       const message = 'Battery is low. Plug in now!';
-      say.speak(message);
+      options.speechEnabled && say.speak(message);
+      options.outputFormat === 'string' ? output += `  ${message}\r\n` : output.message = message;
     } else if (currentBatteryLevel >= options.highWarningThreshold && (fullyCharged || isChargingWithHighWattage)) {
       const message = 'Battery is sufficiently charged. Unplug now!';
-      say.speak(message);
+      options.speechEnabled && say.speak(message);
+      options.outputFormat === 'string' ? output += `  ${message}\r\n` : output.message = message;
     }
   }
 
