@@ -45,7 +45,7 @@ if (options.loggingEnabled && options.logFilePath){
 
 const checkChargeStatus = async(options = {}, currentBatteryInfo) => {
   const now = new Date();
-  const batteryInfo = currentBatteryInfo || await getOsxBattery();
+  const batteryInfo = currentBatteryInfo || (await getOsxBattery());
   const {batteryData, fullyCharged, isCharging, adapterDetails} = batteryInfo;
   const currentBatteryLevel = batteryData.stateOfCharge;
   // ensure we are using an apple adaptor or at least one with enough wattage to charge the laptop
